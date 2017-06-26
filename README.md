@@ -1,6 +1,8 @@
 # OS_Nagios
 OpenStack Monitoring with Nagios
-NAGIOS BASE INSTALL
+
+
+# NAGIOS BASE INSTALL
  
 ubuntu instance/server
 sudo apt-get update
@@ -12,7 +14,9 @@ sudo vi /etc/group
 + nagios:x:???:www-data
 sudo chmod g+x /var/lib/nagios3/rw
 sudo apt-get upgrade -y
-INSTANCE CHECK (example)
+
+
+# INSTANCE CHECK (example)
  
 sudo vi /usr/lib/nagios/plugins/nova-list
  
@@ -80,8 +84,9 @@ define service {
 sudo nagios3 -v /etc/nagios3/nagios.cfg
 sudo service nagios3 restart
 http://you_public_ip/nagios3
- 
-NODE MONITORING
+
+
+# NODE MONITORING
  
 On each server / instance / container you want to monitor:
 
@@ -96,7 +101,9 @@ command[keystone]=/usr/lib/nagios/plugins/check_procs -c 1: -w 3: -C keystone-al
 iptables -I INPUT -p tcp --dport 5666 -j ACCEPT
 iptables-save
 service nagios-nrpe-server restart
-SERVICE CHECKS (example)
+
+
+# SERVICE CHECKS (example)
 
 From the NAGIOS server:
  
