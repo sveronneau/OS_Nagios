@@ -14,7 +14,8 @@ export OS_IDENTITY_API_VERSION="3"
 #
 gb_count=$(openstack hypervisor stats show | grep 'local_gb ' | awk '{ print $4; }' 2>&1)
 gb_used=$(openstack hypervisor stats show | grep 'local_gb_used' | awk '{ print $4; }' 2>&1)
-pct_used=$(($gb_count / $gb_used))
+pct_used=$(($gb_used * 100))
+pct_used=$(($pct_used / $gb_count))
 #
 if [ "$pct_used" -gt "90" ] ; then
 	echo "CRITICAL - $gb_used gb used out of $gb_count gb - You are at $pct_used % total local disk consumption"

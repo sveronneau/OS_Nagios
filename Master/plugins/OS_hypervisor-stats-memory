@@ -14,7 +14,8 @@ export OS_IDENTITY_API_VERSION="3"
 #
 mem_count=$(openstack hypervisor stats show | grep 'memory_mb ' | awk '{ print $4; }' 2>&1)
 mem_used=$(openstack hypervisor stats show | grep 'memory_mb_used' | awk '{ print $4; }' 2>&1)
-pct_used=$(($mem_count / $mem_used))
+pct_used=$(($mem_used * 100))
+pct_used=$(($pct_used / $mem_count))
 #
 if [ "$pct_used" -gt "90" ] ; then
 	echo "CRITICAL - $mem_used mb used out of $mem_count mb - You are at $pct_used % total memory consumption"

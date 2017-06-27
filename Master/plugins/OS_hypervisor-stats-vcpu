@@ -14,7 +14,8 @@ export OS_IDENTITY_API_VERSION="3"
 #
 vcpu_count=$(openstack hypervisor stats show | grep 'vcpus ' | awk '{ print $4; }' 2>&1)
 vcpu_used=$(openstack hypervisor stats show | grep 'vcpus_used' | awk '{ print $4; }' 2>&1)
-pct_used=$(($vcpu_count / $vcpu_used))
+pct_used=$(($vcpu_used * 100))
+pct_used=$(($pct_used / $vcpu_count))
 #
 if [ "$pct_used" -gt "90" ] ; then
 	echo "CRITICAL - $vcpu_used vCPU used out of $vcpu_count - You are at $pct_used % total vCPU consumption"
