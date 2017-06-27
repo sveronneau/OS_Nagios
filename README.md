@@ -4,7 +4,7 @@ OpenStack Monitoring with Nagios
 
 # NAGIOS BASE INSTALL
  
-ubuntu instance/server:
+Ubuntu instance/server:
 
 ```
 > sudo apt-get update
@@ -21,70 +21,79 @@ ubuntu instance/server:
 # INSTANCE CHECK (example)
  
 sudo vi /usr/lib/nagios/plugins/nova-list
- 
-#!/bin/bash
-export OS_ENDPOINT_TYPE=internalURL
-export OS_INTERFACE=internalURL
-export OS_USERNAME=admin
-export OS_PASSWORD=''
-export OS_PROJECT_NAME=admin
-export OS_TENANT_NAME=admin
-export OS_AUTH_URL=http://public_ip:5000/v3
-export OS_NO_CACHE=1
-export OS_USER_DOMAIN_NAME=Default
-export OS_PROJECT_DOMAIN_NAME=Default
-export OS_REGION_NAME=RegionOne
-#
-data=$(nova list  2>&1)
-rv=$?
-#
-if [ "$rv" != "0" ] ; then
-    echo $data
-    exit $rv
-fi
-#
-echo "$data" | grep -v -e '--------' -e '| Status |' -e '^$' | wc -l
-#
- 
+
+```
+> #!/bin/bash
+> export OS_ENDPOINT_TYPE=internalURL
+> export OS_INTERFACE=internalURL
+> export OS_USERNAME=admin
+> export OS_PASSWORD=''
+> export OS_PROJECT_NAME=admin
+> export OS_TENANT_NAME=admin
+> export OS_AUTH_URL=http://public_ip:5000/v3
+> export OS_NO_CACHE=1
+> export OS_USER_DOMAIN_NAME=Default
+> export OS_PROJECT_DOMAIN_NAME=Default
+> export OS_REGION_NAME=RegionOne
+> #
+> data=$(nova list  2>&1)
+> rv=$?
+> #
+> if [ "$rv" != "0" ] ; then
+>     echo $data
+>     exit $rv
+> fi
+> #
+> echo "$data" | grep -v -e '--------' -e '| Status |' -e '^$' | wc -l
+> #
+```
+
 sudo chmod u+x /usr/lib/nagios/plugins/nova-list
+
 sudo vi /etc/nagios3/conf.d/openstack.cfg
-#########################################
-# OPENSTACK
-#########################################
-##### HOSTS
-#########################################
-define host{
-        use                     generic-host            ; Name of host template to use
-        host_name               OpenStack
-        alias                   OpenStack
-        address                 127.0.0.1
-        }
-#########################################
-##### COMMANDS
-#########################################
-define command {
-        command_line            /usr/lib/nagios/plugins/nova-list
-        command_name            nova-list
-}
-define command{
-        command_name            check_nrpe_os
-        command_line            /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
-}
-#
-#######################################
-##### SERVICES
-#######################################
-define service {
-        check_command           nova-list
-        host_name               OpenStack
-        name                    nova-list
-        normal_check_interval   5
-        service_description     Number of nova vm instances
-        use                     generic-service
-        }
-#
+
+```
+> #########################################
+> # OPENSTACK
+> #########################################
+> ##### HOSTS
+> #########################################
+> define host{
+>         use                     generic-host            ; Name of host template to use
+>         host_name               OpenStack
+>         alias                   OpenStack
+>         address                 127.0.0.1
+>         }
+> #########################################
+> ##### COMMANDS
+> #########################################
+> define command {
+>         command_line            /usr/lib/nagios/plugins/nova-list
+>         command_name            nova-list
+> }
+> define command{
+>         command_name            check_nrpe_os
+>         command_line            /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+> }
+> #
+> #######################################
+> ##### SERVICES
+> #######################################
+> define service {
+>         check_command           nova-list
+>         host_name               OpenStack
+>         name                    nova-list
+>         normal_check_interval   5
+>         service_description     Number of nova vm instances
+>         use                     generic-service
+>         }
+> #
+```
+
 sudo nagios3 -v /etc/nagios3/nagios.cfg
+
 sudo service nagios3 restart
+
 http://you_public_ip/nagios3
 
 
