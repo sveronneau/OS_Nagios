@@ -106,9 +106,9 @@ On each server / instance / container you want to monitor:
 > sudo apt-get -y install nagios-nrpe-server nagios-plugins-standard
 > sudo apt-get upgrade -y
 > sudo vi /etc/nagios/nrpe.cfg
-> allowed_hosts=127.0.0.1, NagiosServerIP
+>   allowed_hosts=127.0.0.1, NagiosServerIP
 > vi /etc/nagios/nrpe.d/openstack.cfg
-> command[keystone]=/usr/lib/nagios/plugins/check_procs -c 1: -w 3: -C keystone-all
+>   command[keystone]=/usr/lib/nagios/plugins/check_procs -c 1: -w 3: -C keystone-all
 > iptables -I INPUT -p tcp --dport 5666 -j ACCEPT
 > iptables-save
 ```
