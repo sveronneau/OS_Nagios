@@ -6,6 +6,7 @@ OpenStack Monitoring with Nagios
  
 ubuntu instance/server:
 
+```
 > sudo apt-get update
 > sudo apt-get install -y nagios*
 > sudo vi /etc/nagios3/nagios.cfg
@@ -15,7 +16,7 @@ ubuntu instance/server:
 > + nagios:x:???:www-data
 > sudo chmod g+x /var/lib/nagios3/rw
 > sudo apt-get upgrade -y
-
+```
 
 # INSTANCE CHECK (example)
  
