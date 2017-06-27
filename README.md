@@ -4,16 +4,17 @@ OpenStack Monitoring with Nagios
 
 # NAGIOS BASE INSTALL
  
-ubuntu instance/server
-sudo apt-get update
-sudo apt-get install -y nagios*
-sudo vi /etc/nagios3/nagios.cfg
-check_external_commands=1
-sudo vi /etc/group
-- nagios:x:???:
-+ nagios:x:???:www-data
-sudo chmod g+x /var/lib/nagios3/rw
-sudo apt-get upgrade -y
+ubuntu instance/server:
+
+> sudo apt-get update
+> sudo apt-get install -y nagios*
+> sudo vi /etc/nagios3/nagios.cfg
+> check_external_commands=1
+> sudo vi /etc/group
+> - nagios:x:???:
+> + nagios:x:???:www-data
+> sudo chmod g+x /var/lib/nagios3/rw
+> sudo apt-get upgrade -y
 
 
 # INSTANCE CHECK (example)
