@@ -1,0 +1,31 @@
+#!/bin/bash
+export OS_ENDPOINT_TYPE=internalURL
+export OS_INTERFACE=internalURL
+export OS_USERNAME=admin
+export OS_PASSWORD='22829d4ea7178b9d528992fd202fe2b'
+export OS_PROJECT_NAME=admin
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://172.29.236.100:5000/v3
+export OS_NO_CACHE=1
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_REGION_NAME=RegionOne
+export OS_IDENTITY_API_VERSION="3"
+#
+mem_count=$(openstack hypervisor stats show | grep 'memory_mb ' | awk '{ print $4; }' 2>&1)
+mem_used=$(openstack hypervisor stats show | grep 'memory_mb_used' | awk '{ print $4; }' 2>&1)
+pct_used=$(($mem_count / $mem_used))
+#
+if [ "$pct_used" -gt "90" ] ; then
+	echo "CRITICAL - $mem_used mb used out of $mem_count mb - You are at $pct_used % total memory consumption"
+	exit 2;
+fi
+#
+if [ "$pct_used" -gt "75" ] ; then
+        echo "WARNINGL - $mem_used mb used out of $mem_count mb - You are at $pct_used % total memory consumption"
+        exit 1;
+fi
+#
+echo "OK - $mem_used mb used out of $mem_count mb - You are at $pct_used % total memory consumption"
+exit 0;
+#
