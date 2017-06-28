@@ -30,7 +30,7 @@ sudo vi /usr/lib/nagios/plugins/OS_server-list
 > export OS_PASSWORD='my_super_secure_password'
 > export OS_PROJECT_NAME=admin
 > export OS_TENANT_NAME=admin
-> export OS_AUTH_URL=http://172.29.236.100:5000/v3
+> export OS_AUTH_URL=http://public_endpoint:5000/v3
 > export OS_NO_CACHE=1
 > export OS_USER_DOMAIN_NAME=Default
 > export OS_PROJECT_DOMAIN_NAME=Default
