@@ -51,6 +51,7 @@ sudo vi /usr/lib/nagios/plugins/OS_server-list
 sudo chmod u+x /usr/lib/nagios/plugins/OS_server-list
 
 sudo mkdir /etc/nagios3/conf.d/openstack
+
 sudo vi /etc/nagios3/conf.d/openstack/openstack.cfg
 
 ```
