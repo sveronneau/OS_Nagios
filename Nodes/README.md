@@ -1,4 +1,4 @@
-# file location in the server/instance/container running NRPE Server
+# file location on the server(s), instance(s) or container(s) running the NRPE Server
 Content of the openstack folder must be put in /etc/nagios/nrpe.d/openstack /           (create the openstack folder)
 
 Content of the plugins folder must be put in /usr/lib/nagios/plugins/
