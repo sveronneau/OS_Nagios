@@ -9,5 +9,5 @@ Content of the plugins folder must be put in /usr/lib/nagios/plugins/
 # Post-Copy requirement
 You must restart the nagios server service to load the configs
 ```
-> sudo service nagios3 restart
+> sudo service nagios-nrpe-server restart
 ```
