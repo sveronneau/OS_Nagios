@@ -1,6 +1,9 @@
 # OS_Nagios
 OpenStack Monitoring with Nagios
 
+# Pre-requisite
+On the Nagios server the OpenStack client needs to be installed.
+https://docs.openstack.org/user-guide/common/cli-install-openstack-command-line-clients.html 
 
 # NAGIOS BASE INSTALL
  
