@@ -1,0 +1,25 @@
+#!/bin/bash
+export OS_ENDPOINT_TYPE=internalURL
+export OS_INTERFACE=internalURL
+export OS_USERNAME=admin
+export OS_PASSWORD='22829d4ea7178b9d528992fd202fe2b'
+export OS_PROJECT_NAME=admin
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://172.29.236.100:5000/v3
+export OS_NO_CACHE=1
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_REGION_NAME=RegionOne
+export OS_IDENTITY_API_VERSION="3"
+#
+TOKEN=$(openstack token issue | grep -e "id         " | awk '{ print $4; }' 2>&1)
+EXPIRES=$(openstack token issue | grep -e "expires" | awk '{ print $4; }' 2>&1)
+#
+if [ -z "$TOKEN" ]; then
+	echo "CRITICAL - Keystone didn't issue a token"
+	exit 2;
+fi
+#
+echo "OK - Token ${TOKEN:0:20}... generated and will expire on $EXPIRES"
+exit 0;
+#
