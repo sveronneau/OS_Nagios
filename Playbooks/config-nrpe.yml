@@ -1,0 +1,8 @@
+---
+- hosts: nagios-clients
+  become: true
+  tasks:
+    - name:
+      copy:
+        src:
+        dest:
