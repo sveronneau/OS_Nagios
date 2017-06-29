@@ -18,6 +18,13 @@ Ubuntu instance/server:
 > sudo apt-get upgrade -y
 ```
 
+If Apache user was not created during Nagios installation:
+
+```
+> sudo htpasswd -c /etc/nagios3/htpasswd.users nagiosadmin
+> #provide password when prompted
+```
+
 # INSTANCE CHECK (example)
  
 sudo vi /usr/lib/nagios/plugins/OS_server-list
