@@ -27,32 +27,25 @@ If Apache user was not created during Nagios installation:
 
 # INSTANCE CHECK (example)
  
+**MANDATORY** your openrc file must be copied in /usr/lib/nagios/plugins
+
 sudo vi /usr/lib/nagios/plugins/OS_server-list
 
 ```
 > #!/bin/bash
-> export OS_ENDPOINT_TYPE=internalURL
-> export OS_INTERFACE=internalURL
-> export OS_USERNAME=admin
-> export OS_PASSWORD='my_super_secure_password'
-> export OS_PROJECT_NAME=admin
-> export OS_TENANT_NAME=admin
-> export OS_AUTH_URL=http://public_endpoint:5000/v3
-> export OS_NO_CACHE=1
-> export OS_USER_DOMAIN_NAME=Default
-> export OS_PROJECT_DOMAIN_NAME=Default
-> export OS_REGION_NAME=RegionOne
-> export OS_IDENTITY_API_VERSION="3"
-> 
+> #
+> source openrc
+> # 
 > data=$(openstack server list --all-projects 2>&1)
 > rv=$?
-> 
+> #
 > if [ "$rv" != "0" ] ; then
 >     echo $data
 >     exit $rv
 > fi
-> 
+> #
 > echo "$data" | grep -v -e '--------' -e '| ID' -e '^$' | wc -l
+> #
 ```
 
 sudo chmod u+x /usr/lib/nagios/plugins/OS_server-list
@@ -108,7 +101,7 @@ sudo service nagios3 restart
 http://you_public_ip/nagios3
 
 
-# NODE MONITORING
+# NODE MONITORING VIA NRPE AGENT (example)
  
 On each bare metal server / instance or container you want to monitor:
 
@@ -119,7 +112,29 @@ On each bare metal server / instance or container you want to monitor:
 > sudo vi /etc/nagios/nrpe.cfg
 >   allowed_hosts=127.0.0.1, NagiosServerIP
 > sudo vi /etc/nagios/nrpe.d/openstack.cfg
->   command[keystone]=/usr/lib/nagios/plugins/check_procs -c 1: -w 3: -C keystone-all
+>   command[OS_keystone]=/usr/lib/nagios/plugins/OS_check_keystone_procs
+> sudo vi /usr/lib/nagios/plugins/OS_check_keystone_procs
+>   #!/bin/bash
+>   #
+>   data=$(ps -def | grep 'wsgi:keystone' | grep -v grep | wc -l)
+>   #
+>   if [ "$data" -eq "0" ] ; then
+>       echo "CRITICAL - $data Keystone Processes"
+>       exit 2
+>   fi
+>   #
+>   if [ "$data" -lt "4" ] ; then
+>       if [ "$data" -gt "1" ] ; then
+>           echo "WARNING - $data Keystone Processes"
+>           exit 1
+>       fi
+>   fi
+>   #
+>   if [ "$data" -eq "4" ] ; then
+>       echo "OK - $data Keystone Processes"
+>       exit 0
+>   fi
+>   #
 > iptables -I INPUT -p tcp --dport 5666 -j ACCEPT
 > iptables-save
 ```
