@@ -1,3 +1,6 @@
+# MANDATORY
+Your admin openrc file must be copied in /usr/lib/nagios/plugins/ on the Nagios server and be made readable by all.
+
 # file location on the Nagios server
 Content of the openstack folder must be put in /etc/nagios3/conf.d/openstack /           (create the openstack folder)
 
