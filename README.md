@@ -108,7 +108,7 @@ sudo service nagios3 restart
 http://you_public_ip/nagios3
 
 
-# NODE MONITORING
+# NODE MONITORING VIA NRPE AGENT (example)
  
 On each bare metal server / instance or container you want to monitor:
 
@@ -119,7 +119,29 @@ On each bare metal server / instance or container you want to monitor:
 > sudo vi /etc/nagios/nrpe.cfg
 >   allowed_hosts=127.0.0.1, NagiosServerIP
 > sudo vi /etc/nagios/nrpe.d/openstack.cfg
->   command[keystone]=/usr/lib/nagios/plugins/check_procs -c 1: -w 3: -C keystone-all
+>   command[OS_keystone]=/usr/lib/nagios/plugins/OS_check_keystone_procs
+> sudo vi /usr/lib/nagios/plugins/OS_check_keystone_procs
+>   #!/bin/bash
+>   #
+>   data=$(ps -def | grep 'wsgi:keystone' | grep -v grep | wc -l)
+>   #
+>   if [ "$data" -eq "0" ] ; then
+>       echo "CRITICAL - $data Keystone Processes"
+>       exit 2
+>   fi
+>   #
+>   if [ "$data" -lt "4" ] ; then
+>       if [ "$data" -gt "1" ] ; then
+>           echo "WARNING - $data Keystone Processes"
+>           exit 1
+>       fi
+>   fi
+>   #
+>   if [ "$data" -eq "4" ] ; then
+>       echo "OK - $data Keystone Processes"
+>       exit 0
+>   fi
+>   #
 > iptables -I INPUT -p tcp --dport 5666 -j ACCEPT
 > iptables-save
 ```
