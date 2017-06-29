@@ -18,6 +18,13 @@ Ubuntu instance/server:
 > sudo apt-get upgrade -y
 ```
 
+If Apache user was not created during Nagios installation:
+
+```
+> sudo htpasswd -c /etc/nagios3/htpasswd.users nagiosadmin
+> #provide password when prompted
+```
+
 # INSTANCE CHECK (example)
  
 sudo vi /usr/lib/nagios/plugins/OS_server-list
@@ -75,7 +82,6 @@ sudo vi /etc/nagios3/conf.d/openstack/openstack.cfg
 >         name                    OS_server-list
 > }
 > #
-> }
 > define command{
 >         command_name            check_nrpe_os
 >         command_line            /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
