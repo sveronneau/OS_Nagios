@@ -27,13 +27,15 @@ If Apache user was not created during Nagios installation:
 
 # INSTANCE CHECK (example)
  
+**MANDATORY** your openrc file must be copied in /usr/lib/nagios/plugins
+
 sudo vi /usr/lib/nagios/plugins/OS_server-list
 
 ```
 > #!/bin/bash
 > #
 > source openrc
-> #> 
+> # 
 > data=$(openstack server list --all-projects 2>&1)
 > rv=$?
 > #
