@@ -6,3 +6,8 @@ Content of the plugins folder must be put in /usr/lib/nagios/plugins/
 > chown root:root /usr/lib/nagios/plugins/OS_*
 > chmod 755 /usr/lib/nagios/plugins/OS_*
 ```
+# Post-Copy requirement
+You must restart the nagios server service to load the configs
+```
+> sudo service nagios-nrpe-server restart
+```
