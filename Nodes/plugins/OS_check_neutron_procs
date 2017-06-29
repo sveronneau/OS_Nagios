@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+data=$(ps -def | grep 'neutron-server' | grep -v grep | wc -l)
+#
+if [ "$data" -eq "0" ] ; then
+    echo "CRITICAL - $data Neutron Processes"
+    exit 2
+fi
+#
+if [ "$data" -eq "6" ] ; then
+    echo "OK - $data Neutron Processes"
+    exit 0
+fi
+echo "WARNING - $data Neutron Processes. Expected 6"
+exit 1
+#
