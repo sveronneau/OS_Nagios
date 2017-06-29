@@ -31,28 +31,19 @@ sudo vi /usr/lib/nagios/plugins/OS_server-list
 
 ```
 > #!/bin/bash
-> export OS_ENDPOINT_TYPE=internalURL
-> export OS_INTERFACE=internalURL
-> export OS_USERNAME=admin
-> export OS_PASSWORD='my_super_secure_password'
-> export OS_PROJECT_NAME=admin
-> export OS_TENANT_NAME=admin
-> export OS_AUTH_URL=http://public_endpoint:5000/v3
-> export OS_NO_CACHE=1
-> export OS_USER_DOMAIN_NAME=Default
-> export OS_PROJECT_DOMAIN_NAME=Default
-> export OS_REGION_NAME=RegionOne
-> export OS_IDENTITY_API_VERSION="3"
-> 
+> #
+> source openrc
+> #> 
 > data=$(openstack server list --all-projects 2>&1)
 > rv=$?
-> 
+> #
 > if [ "$rv" != "0" ] ; then
 >     echo $data
 >     exit $rv
 > fi
-> 
+> #
 > echo "$data" | grep -v -e '--------' -e '| ID' -e '^$' | wc -l
+> #
 ```
 
 sudo chmod u+x /usr/lib/nagios/plugins/OS_server-list
