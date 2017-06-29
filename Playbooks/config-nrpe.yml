@@ -17,3 +17,7 @@
         owner: root
         group: root
         mode: 0755
+    - name: Restart NRPE service
+      service:
+        name: nagios-nrpe-server
+        state: restarted

@@ -17,3 +17,7 @@
         owner: root
         group: root
         mode: 0755
+    - name: Restart nagios3 service
+      service:
+        name: nagios3
+        state: restarted
