@@ -12,7 +12,7 @@
         dest: /etc/nagios/nrpe.d/openstack/
     - name: Copy over plugins to /usr/lib/nagios/plugins/
       copy:
-        src: ../Nodes/plugins
+        src: ../Nodes/plugins/
         dest: /usr/lib/nagios/plugins/
         owner: root
         group: root
