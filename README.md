@@ -75,7 +75,6 @@ sudo vi /etc/nagios3/conf.d/openstack/openstack.cfg
 >         name                    OS_server-list
 > }
 > #
-> }
 > define command{
 >         command_name            check_nrpe_os
 >         command_line            /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
