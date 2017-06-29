@@ -2,7 +2,18 @@
 - hosts: nagios-clients
   become: true
   tasks:
-    - name:
+    - name: Create /etc/nagios/nrpe.d/openstack directory
+      file:
+        path: /etc/nagios/nrpe.d/openstack
+        state: directory
+    - name: Copy over content into /etc/nagios/nrpe.d/openstack
       copy:
-        src:
-        dest:
+        src: ../Nodes/openstack/
+        dest: /etc/nagios/nrpe.d/openstack/
+    - name: Copy over plugins to /usr/lib/nagios/plugins/
+      copy:
+        src: ../Nodes/plugins
+        dest: /usr/lib/nagios/plugins/
+        owner: root
+        group: root
+        mode: 0755
