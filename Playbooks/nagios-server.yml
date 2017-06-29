@@ -1,0 +1,40 @@
+---
+- hosts: nagios-server
+  become: true
+  tasks:
+    - name: upgrade packages
+      include: ./files/upgrade-packages-tasks.yml
+
+    - name: install nagios
+      apt:
+        name: nagios*
+        state: latest
+
+    - name: edit nagios.conf with check_external_commands=1
+      replace:
+        path: /etc/nagios3/nagios.cfg
+        regexp: '^check_external_commands=0'
+        replace: 'check_external_commands=1'
+        backup: yes
+
+    - name: ensure www-data user in in nagios group
+      user:
+        name: "www-data"
+        groups: "nagios"
+        state: present
+
+    - name: chmod g+x /var/lib/nagios3/rw
+      file:
+        path: /var/lib/nagios3/rw
+        mode: "g+x"
+
+    - name: install python-passlib
+      apt:
+        name: python-passlib
+        state: latest
+
+    - name: create nagiosadmin user file for apache authentication
+      htpasswd:
+        path: /etc/nagios3/htpasswd.users
+        name: nagiosadmin
+        password: nagiosadmin

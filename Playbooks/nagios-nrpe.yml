@@ -1,0 +1,35 @@
+---
+- hosts: nagios-clients
+  become: true
+  tasks:
+    - name: upgrade packages
+      include: ./files/upgrade-packages-tasks.yml
+
+    - name: install nagios-nrpe-server
+      apt:
+        name: nagios-nrpe-server
+        state: latest
+    
+    - name: install nagios-plugins-standard
+      apt:
+        name: nagios-plugins-standard
+        state: latest
+
+    - name: add nagios server to allowed_hosts in /etc/nagios/nrpe.cfg
+      lineinfile:
+        path: /etc/nagios/nrpe.cfg
+        regexp: '^allowed_hosts=127\.0\.0\.1'
+        line: 'allowed_hosts=127.0.0.1, {{ nagios_server_ip }}'
+        backup: yes
+    
+    - name: open nrpe port in iptables
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 5666
+        jump: ACCEPT
+      register: nrpe_port_opened
+
+    - name: save iptables
+      command: iptables-save
+      when: nrpe_port_opened|changed
