@@ -1,4 +1,4 @@
-# file location
+# file location on the Nagios server
 Content of the openstack folder must be put in /etc/nagios3/conf.d/openstack /           (create the openstack folder)
 
 Content of the plugins folder must be put in /usr/lib/nagios/plugins/
