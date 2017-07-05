@@ -12,6 +12,12 @@ edit slack_nagios.cfg and insert the channel you want to post on.
 ```
 > command_line /usr/lib/nagios/plugins/slack_nagios.pl -field slack_channel=#MY_SLACK_CHANNEL -field.............
 ```
+# plugins/slack_nagios.pl
+edit slack_nagios.pl and define your Slack Team domain and insert the token you got from the Slack / Nagios integration (https://cloudops.slack.com/apps/A0F81R747-nagios) 
+```
+> my $opt_domain = "???.slack.com"; # Your team's domain
+> my $opt_token = "your slack inetgartion token"; # The token from your Nagios services page
+```
 
 # file location on the Nagios server
 Content of the **contacts folder** must be put in /etc/nagios3/conf.d/
