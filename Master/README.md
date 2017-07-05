@@ -4,6 +4,12 @@ Your admin openrc file must be copied in /usr/lib/nagios/plugins/ on the Nagios 
 # openstack/openstack.cfg (pre-requisite)
 you must edit the openstack.cfg file to reflect the IPs of your environment
 
+# openstack/slack_nagios.cfg (if you want to use slack inetgration)
+edit slack_nagios.cfg and insert the channel you want to post on. 
+```
+> command_line /usr/lib/nagios/plugins/slack_nagios.pl -field slack_channel=#MY_SLACK_CHANNEL -field.............
+```
+
 # file location on the Nagios server
 Content of the openstack folder must be put in /etc/nagios3/conf.d/openstack /           (create the openstack folder)
 
