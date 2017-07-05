@@ -63,8 +63,8 @@ use LWP::UserAgent;
 # Customizable vars. Set these to the information for your team
 #
 
-my $opt_domain = "cloudops.slack.com"; # Your team's domain
-my $opt_token = "CutqU7qQ4fhVPZ2XnIU37XsW"; # The token from your Nagios services page
+my $opt_domain = "???.slack.com"; # Your team's domain
+my $opt_token = "your slack inetgartion token"; # The token from your Nagios services page
 
 
 #
