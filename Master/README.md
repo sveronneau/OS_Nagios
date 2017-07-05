@@ -1,6 +1,9 @@
 # MANDATORY
 Your admin openrc file must be copied in /usr/lib/nagios/plugins/ on the Nagios server and be made readable by all.
 
+# contacts/contacts_nagios2.cfg (pre-requisite)
+you must edit the contacts_nagios2.cfg file and put your email adress. Also, if you don't want the slack integration part, just remove the ',slack' after root in the contactgroup members section.
+
 # openstack/openstack.cfg (pre-requisite)
 you must edit the openstack.cfg file to reflect the IPs of your environment
 
@@ -11,9 +14,11 @@ edit slack_nagios.cfg and insert the channel you want to post on.
 ```
 
 # file location on the Nagios server
-Content of the openstack folder must be put in /etc/nagios3/conf.d/openstack /           (create the openstack folder)
+Content of the **contacts folder** must be put in /etc/nagios3/conf.d/
 
-Content of the plugins folder must be put in /usr/lib/nagios/plugins/
+Content of the **openstack folder** must be put in /etc/nagios3/conf.d/openstack/           (create the openstack folder)
+
+Content of the **plugins** folder must be put in /usr/lib/nagios/plugins/
 ```
 > chown root:root /usr/lib/nagios/plugins/OS_*
 > chmod 755 /usr/lib/nagios/plugins/OS_*
