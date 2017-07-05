@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-source openrc
+source /usr/lib/nagios/plugins/openrc
 #
 data=$(openstack floating ip list 2>&1)
 rv=$?

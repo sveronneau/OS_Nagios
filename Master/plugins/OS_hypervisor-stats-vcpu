@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-source openrc
+source /usr/lib/nagios/plugins/openrc
 #
 vcpu_count=$(openstack hypervisor stats show | grep 'vcpus ' | awk '{ print $4; }' 2>&1)
 vcpu_used=$(openstack hypervisor stats show | grep 'vcpus_used' | awk '{ print $4; }' 2>&1)

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-source openrc
+source /usr/lib/nagios/plugins/openrc
 #
 gb_count=$(openstack hypervisor stats show | grep 'local_gb ' | awk '{ print $4; }' 2>&1)
 gb_used=$(openstack hypervisor stats show | grep 'local_gb_used' | awk '{ print $4; }' 2>&1)

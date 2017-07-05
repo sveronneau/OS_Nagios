@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-source openrc
+source /usr/lib/nagios/plugins/openrc
 #
 TOKEN=$(openstack token issue | grep -e "id         " | awk '{ print $4; }' 2>&1)
 EXPIRES=$(openstack token issue | grep -e "expires" | awk '{ print $4; }' 2>&1)

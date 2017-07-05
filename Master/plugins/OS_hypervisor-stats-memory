@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-source openrc
+source /usr/lib/nagios/plugins/openrc
 #
 mem_count=$(openstack hypervisor stats show | grep 'memory_mb ' | awk '{ print $4; }' 2>&1)
 mem_used=$(openstack hypervisor stats show | grep 'memory_mb_used' | awk '{ print $4; }' 2>&1)
